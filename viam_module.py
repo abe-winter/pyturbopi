@@ -11,6 +11,7 @@ from viam.resource.easy_resource import EasyResource, stub_model
 from src.motor import TpMotor
 from src.i2c import I2C
 from src.util import BUS_ADDR, BUS
+from src.base import Base as TPBase
 
 # todo: mutex maybe
 GLOBAL_I2C = I2C(BUS, BUS_ADDR)
@@ -41,8 +42,31 @@ class MyMotor(Motor, EasyResource):
     # async def is_moving(self) -> bool:
 
 
-# class MyBase(Base, EasyResource):
-#     MODEL = "awinter:turbopi:base"
+@stub_model
+class MyBase(Base, EasyResource):
+    MODEL = "awinter:turbopi:base"
+    tp: TPBase
+
+    def __init__(self, name):
+        self.tp = TPBase(GLOBAL_I2C)
+        super().__init__(name)
+
+    # async def move_straight(self, distance: int, velocity: float, **kwargs):
+    #     raise NotImplementedError
+
+    async def set_power(self, linear, angular, **kwargs):
+        self.tp.actuate(linear.y, linear.y, linear.y, linear.y)
+
+    async def stop(self, **kwargs):
+        self.tp.actuate()
+
+    # async def move_straight(
+    # async def spin(
+    # async def set_power(
+    # async def set_velocity(
+    # async def is_moving(self) -> bool:
+    # async def get_properties(self, *, timeout: Optional[float] = None, **kwargs) -> Properties:
+
 
 if __name__ == '__main__':
     asyncio.run(Module.run_from_registry())
