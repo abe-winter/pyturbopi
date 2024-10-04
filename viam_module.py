@@ -41,6 +41,13 @@ class MyMotor(Motor, EasyResource):
     # async def is_powered(
     # async def is_moving(self) -> bool:
 
+def mecanum_velocity(linear, angular):
+    "returns FL, FR, RL, RR"
+    fl = linear.y - linear.x - (linear.y + linear.x) * angular.z
+    fr = linear.y + linear.x + (linear.y + linear.x) * angular.z
+    rl = linear.y + linear.x - (linear.y + linear.x) * angular.z
+    rr = linear.y - linear.x + (linear.y + linear.x) * angular.z
+    return fl, fr, rl, rr
 
 @stub_model
 class MyBase(Base, EasyResource):
@@ -55,7 +62,7 @@ class MyBase(Base, EasyResource):
     #     raise NotImplementedError
 
     async def set_power(self, linear, angular, **kwargs):
-        self.tp.actuate(linear.y, linear.y, linear.y, linear.y)
+        self.tp.actuate(*mecanum_velocity(linear, angular))
 
     async def stop(self, **kwargs):
         self.tp.actuate()
