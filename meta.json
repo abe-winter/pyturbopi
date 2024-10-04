@@ -6,8 +6,12 @@
   "description": "viam module for the turbopi hobby base",
   "models": [
     {
-      "api": "",
-      "model": ""
+      "api": "rdk:component:motor",
+      "model": "awinter:turbopi:motor"
+    },
+    {
+      "api": "rdk:component:base",
+      "model": "awinter:turbopi:base"
     }
   ],
   "build": {

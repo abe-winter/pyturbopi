@@ -19,14 +19,17 @@ class TpMotor:
 
     def actuate(self, effort: float):
         speed = 0
-        if abs(effort) >= 1:
-            speed = signed_clamp(math.ceil(effort) / 31 * 100, 50, 100)
+        if effort != 0: # abs(effort) >= 1:
+            # print('effort', effort, 'med', math.ceil(effort) / 31 * 100)
+            # speed = signed_clamp(math.ceil(effort) / 31 * 100, 50, 100)
+            # print('clamped', speed)
+            speed = signed_clamp(int(effort * 100), 10, 100)
             if self.clockwise():
                 speed = -speed
         
-        logger.info('writing i2c %s motor %s id %d data %s %s', BUS_ADDR, MOTOR_ADDR, self.id, self.id - 1 + MOTOR_ADDR, speed)
+        # logger.info('writing i2c %s motor %s id %d data %s %s', BUS_ADDR, MOTOR_ADDR, self.id, self.id - 1 + MOTOR_ADDR, speed)
         ret = self.i2c.write(MOTOR_ADDR, self.id - 1, speed)
-        print('block ret', ret)
+        # print('block ret', ret)
 
 @dataclass
 class TpServo:
