@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+import asyncio
+from typing import Dict, Mapping
+from viam.components.motor import Motor
+from viam.components.base import Base
+from viam.module import Module
+from viam.proto.app.robot import ComponentConfig
+from viam.proto.common import ResourceName
+from viam.resource.base import ResourceBase
+from viam.resource.easy_resource import EasyResource, stub_model
+from src.motor import TpMotor
+from src.i2c import I2C
+from src.util import BUS_ADDR, BUS
+
+# todo: mutex maybe
+GLOBAL_I2C = I2C(BUS, BUS_ADDR)
+
+@stub_model
+class MyMotor(Motor, EasyResource):
+    MODEL = "awinter:turbopi:motor"
+    motor: TpMotor
+
+    def __init__(self, name: str):
+        self.motor = TpMotor(1, GLOBAL_I2C, name)
+        super().__init__(name)
+
+    async def set_power(self, power: float, **kwargs):
+        self.motor.actuate(power)
+    
+    # async def go_for(
+    # async def go_to(
+    # async def set_rpm(
+    # async def reset_zero_position(
+    # async def get_position(
+    # async def get_properties(
+    
+    async def stop(self, **kwargs):
+        return await self.set_power(0)
+
+    # async def is_powered(
+    # async def is_moving(self) -> bool:
+
+
+# class MyBase(Base, EasyResource):
+#     MODEL = "awinter:turbopi:base"
+
+if __name__ == '__main__':
+    asyncio.run(Module.run_from_registry())

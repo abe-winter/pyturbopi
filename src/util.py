@@ -1,4 +1,4 @@
-import smbus2
+# import smbus2
 
 BUS = "/dev/i2c-1"
 BUS_ADDR = 0x7a
@@ -12,6 +12,6 @@ def signed_clamp(val, low, high):
     clamped = max(min(abs(val), high), low)
     return clamped * sign
 
-def init_bus(bus: smbus2.SMBus):
-    # todo: move to util
-    bus._set_address(BUS_ADDR)
+# def init_bus(bus: smbus2.SMBus):
+#     # todo: move to util
+#     bus._set_address(BUS_ADDR)

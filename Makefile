@@ -10,3 +10,7 @@ turbopi.zip: __main__.py src/*.py
 
 deploy: turbopi.zip
 	scp $^ $(SSH_TARGET):~
+
+module.tar.gz: meta.json requirements.txt run.sh src/*.py viam_module.py
+	rm -f $@
+	tar czf $@ $^

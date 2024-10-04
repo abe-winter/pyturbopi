@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dl.viam.dev/module.schema.json",
+  "module_id": "awinter:turbopi",
+  "visibility": "private",
+  "url": "https://github.com/abe-winter/pyturbopi",
+  "description": "viam module for the turbopi hobby base",
+  "models": [
+    {
+      "api": "",
+      "model": ""
+    }
+  ],
+  "build": {
+    "build": "make module.tar.gz",
+    "path": "module.tar.gz"
+  },
+  "entrypoint": "run.sh"
+}

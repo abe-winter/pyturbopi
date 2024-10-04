@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import time, logging
-from smbus2 import SMBus
-from src.util import BUS, init_bus, BUS_ADDR
+# from smbus2 import SMBus
+from src.util import BUS, BUS_ADDR
 from src.base import Base
 from src.i2c import I2C
 
