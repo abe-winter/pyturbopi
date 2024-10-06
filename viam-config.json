@@ -1,0 +1,32 @@
+{
+    "components": [
+      {
+        "name": "camera-1",
+        "namespace": "rdk",
+        "type": "camera",
+        "model": "webcam",
+        "attributes": {
+          "width_px": 640,
+          "height_px": 480,
+          "video_path": "usb-icSpring_icspring_camera-video-index0",
+          "format": "YUYV"
+        },
+        "debug": true
+      },
+      {
+        "name": "base-1",
+        "namespace": "rdk",
+        "type": "base",
+        "model": "awinter:turbopi:base",
+        "attributes": {}
+      }
+    ],
+    "modules": [
+      {
+        "type": "local",
+        "name": "awinter_turbopi_from_reload",
+        "executable_path": "/root/.viam/packages-local/awinter_turbopi_from_reload-module.tar.gz"
+      }
+    ]
+  }
+  
