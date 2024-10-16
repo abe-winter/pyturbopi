@@ -2,12 +2,17 @@
 
 set -ex
 
-# if [ ! $(command -v uv) ]; then
-# 	curl -LsSf https://astral.sh/uv/install.sh | sh
-# fi
-
-# uv got installed here
+# uv gets installed here
 export PATH=$PATH:$HOME/.cargo/bin
+
+if [ ! $(command -v uv) ]; then
+	if [ ! $(command -v curl) ]; then
+		echo need curl to install UV. please install curl on this system.
+		exit 1
+	fi
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
 if [ ! -d .venv ]; then
 	uv venv
 fi
