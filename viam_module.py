@@ -62,6 +62,10 @@ class MyBase(Base, EasyResource):
     #     raise NotImplementedError
 
     async def set_power(self, linear, angular, **kwargs):
+        angular_only = linear.x == linear.y == linear.z == angular.x == angular.y == 0 and angular.z != 0
+        if angular_only:
+            linear.x = angular.z
+            angular.z = 0
         self.tp.actuate(*mecanum_velocity(linear, angular))
 
     async def stop(self, **kwargs):
